@@ -1,7 +1,60 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact: React.FC = () => {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'succeeded' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('submitting');
+    setErrorMessage('');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      // Use the provided Formspree URL
+      const response = await fetch('https://formspree.io/f/mdkwwlnl', {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setStatus('succeeded');
+        form.reset();
+      } else {
+        const responseData = await response.json();
+        // FIX: Replaced Object.hasOwn with Object.prototype.hasOwnProperty.call for better compatibility.
+        if (Object.prototype.hasOwnProperty.call(responseData, 'errors')) {
+            setErrorMessage(responseData["errors"].map((error: { message: string }) => error["message"]).join(", "));
+        } else {
+            setErrorMessage("Something went wrong. Please try again later.");
+        }
+        setStatus('error');
+      }
+    } catch (error) {
+      setErrorMessage("Something went wrong. Please try again later.");
+      setStatus('error');
+    }
+  };
+
+  if (status === 'succeeded') {
+    return (
+      <section id="contact" className="py-20 sm:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto text-center glassmorphic border border-cyan-500/50 rounded-lg p-8">
+            <h3 className="text-2xl font-bold text-white">Thank you for your message!</h3>
+            <p className="text-lg text-gray-300 mt-2">I'll get back to you soon.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="contact" className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +64,7 @@ const Contact: React.FC = () => {
            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full"></div>
         </div>
         <div className="max-w-2xl mx-auto">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="sr-only">Name</label>
@@ -20,6 +73,7 @@ const Contact: React.FC = () => {
                   name="name"
                   id="name"
                   placeholder="Your Name"
+                  required
                   className="w-full bg-slate-800/50 border border-white/10 rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
@@ -30,6 +84,7 @@ const Contact: React.FC = () => {
                   name="email"
                   id="email"
                   placeholder="Your Email"
+                  required
                   className="w-full bg-slate-800/50 border border-white/10 rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
@@ -41,17 +96,22 @@ const Contact: React.FC = () => {
                 id="message"
                 rows={5}
                 placeholder="Your Message"
+                required
                 className="w-full bg-slate-800/50 border border-white/10 rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               ></textarea>
             </div>
             <div className="text-center">
               <button
                 type="submit"
-                className="px-10 py-3 rounded-md bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-semibold shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105"
+                disabled={status === 'submitting'}
+                className="px-10 py-3 rounded-md bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-semibold shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
               >
-                Send Message
+                {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
             </div>
+            {status === 'error' && (
+              <p className="text-center text-red-400 mt-4">{errorMessage}</p>
+            )}
           </form>
         </div>
       </div>
