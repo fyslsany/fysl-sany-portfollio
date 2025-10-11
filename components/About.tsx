@@ -22,10 +22,13 @@ const About: React.FC = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-          <div className="lg:w-1/3 flex justify-center">
+          <div className="lg:w-1/3 flex flex-col items-center gap-8">
             <div className="relative w-64 h-64">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-full animate-pulse blur-xl"></div>
                 <img src="https://i.postimg.cc/y8QTYzjW/Layer-6.png" alt="Faysal Ahamed" className="relative w-full h-full object-cover rounded-full border-4 border-slate-800" />
+            </div>
+            <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="faysal-ahamed-sany" data-version="v1">
+              <a className="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/faysal-ahamed-sany?trk=profile-badge" target="_blank" rel="noopener noreferrer">Faysal Ahamed</a>
             </div>
           </div>
 
