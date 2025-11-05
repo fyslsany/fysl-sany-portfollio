@@ -7,6 +7,7 @@ import UiUx from './components/UiUx';
 import Testimonials from './components/Testimonials';
 import About from './components/About';
 import Skills from './components/Skills';
+import Blog from './components/Blog';
 import Cta from './components/Cta';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -43,6 +44,7 @@ function App() {
           <Testimonials />
           <About />
           <Skills />
+          <Blog />
           <Cta />
           <Contact />
         </main>

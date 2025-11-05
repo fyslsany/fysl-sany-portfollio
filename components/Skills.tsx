@@ -4,20 +4,27 @@ import type { Skill } from '../types';
 import { Figma, PenTool, Code, Image, BrainCircuit, Server } from 'lucide-react';
 
 const skills: Skill[] = [
-  { id: 1, name: 'Adobe Illustrator', icon: <PenTool size={48} />, fact: 'The industry-standard for vector graphics and branding.' },
-  { id: 2, name: 'Adobe Photoshop', icon: <Image size={48} />, fact: 'Mastery in photo manipulation, mockups, and digital art.' },
-  { id: 3, name: 'Figma', icon: <Figma size={48} />, fact: 'Primary tool for collaborative UI/UX design and prototyping.' },
-  { id: 4, name: 'HTML/CSS/JS', icon: <Code size={48} />, fact: 'Building responsive and interactive web interfaces.' },
-  { id: 5, name: 'Prompt Engineering', icon: <BrainCircuit size={48} />, fact: 'Crafting effective prompts for generative AI models.' },
-  { id: 6, name: 'Node.js', icon: <Server size={48} />, fact: 'Developing backend services and APIs.' },
+  { id: 1, name: 'Adobe Illustrator', icon: <PenTool size={48} />, fact: 'The industry-standard for vector graphics and branding.', proficiency: 95 },
+  { id: 2, name: 'Adobe Photoshop', icon: <Image size={48} />, fact: 'Mastery in photo manipulation, mockups, and digital art.', proficiency: 90 },
+  { id: 3, name: 'Figma', icon: <Figma size={48} />, fact: 'Primary tool for collaborative UI/UX design and prototyping.', proficiency: 95 },
+  { id: 4, name: 'HTML/CSS/JS', icon: <Code size={48} />, fact: 'Building responsive and interactive web interfaces.', proficiency: 85 },
+  { id: 5, name: 'Prompt Engineering', icon: <BrainCircuit size={48} />, fact: 'Crafting effective prompts for generative AI models.', proficiency: 80 },
+  { id: 6, name: 'Node.js', icon: <Server size={48} />, fact: 'Developing backend services and APIs.', proficiency: 70 },
 ];
 
 const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => (
-  <div className="group relative flex flex-col items-center justify-center p-6 glassmorphic rounded-lg border border-white/10 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/50">
-    <div className="text-cyan-400 transition-colors duration-300 group-hover:text-fuchsia-400">
-      {skill.icon}
+  <div className="group relative flex flex-col items-center justify-between p-6 glassmorphic rounded-lg border border-white/10 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400/50 h-full">
+    <div className="flex flex-col items-center">
+      <div className="text-cyan-400 transition-colors duration-300 group-hover:text-fuchsia-400">
+        {skill.icon}
+      </div>
+      <h3 className="mt-4 text-lg font-semibold text-white text-center">{skill.name}</h3>
     </div>
-    <h3 className="mt-4 text-lg font-semibold text-white">{skill.name}</h3>
+    <div className="w-full mt-4">
+      <div className="w-full bg-slate-700 rounded-full h-1.5">
+          <div className="bg-gradient-to-r from-cyan-400 to-fuchsia-400 h-1.5 rounded-full transition-all duration-500 ease-out" style={{ width: `${skill.proficiency}%` }}></div>
+      </div>
+    </div>
     <div className="absolute bottom-full mb-2 w-max px-3 py-1.5 text-sm font-medium text-white bg-slate-800 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
       {skill.fact}
       <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-slate-800"></div>

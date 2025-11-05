@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Linkedin, Dribbble, Github } from 'lucide-react';
 
@@ -17,7 +18,11 @@ const Footer: React.FC = () => {
             <SocialIcon href="https://github.com/fyslsany"><Github size={24} /></SocialIcon>
         </div>
         <p>&copy; {new Date().getFullYear()} Faysal Ahamed. All Rights Reserved.</p>
-        <p className="text-sm mt-1">Designed & Built with a futuristic vision.</p>
+        <p className="text-sm mt-2">
+            Designed & Built with a futuristic vision. 
+            <span className="mx-2">|</span>
+            <a href="#" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
+        </p>
       </div>
     </footer>
   );

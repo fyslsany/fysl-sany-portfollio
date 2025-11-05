@@ -1,25 +1,61 @@
 
 import React from 'react';
 import type { Project } from '../types';
+import { Dribbble } from 'lucide-react';
 
 const uiProjects: Project[] = [
-  { id: 1, title: 'Fintech NeoBank App', category: 'Mobile UI/UX', imageUrl: 'https://picsum.photos/seed/fintech/500/800' },
-  { id: 2, title: 'HealthTech AI Diagnostics', category: 'Web Dashboard', imageUrl: 'https://i.postimg.cc/rmbGGG3T/picture684-1.png/500' },
-  { id: 3, title: 'AI Creative Suite', category: 'Desktop App UI', imageUrl: 'https://i.postimg.cc/hvLJJ9qp/finall.png' },
+  { 
+    id: 1, 
+    title: 'Fintech NeoBank App', 
+    category: 'Mobile UI/UX', 
+    imageUrl: 'https://picsum.photos/seed/fintech/800/1280',
+    description: 'A concept for a neo-banking app with a focus on clean UI, intuitive navigation, and gamified savings features.',
+    links: {
+      dribbble: '#',
+    }
+  },
+  { 
+    id: 2, 
+    title: 'HealthTech AI Diagnostics', 
+    category: 'Web Dashboard', 
+    imageUrl: 'https://i.postimg.cc/rmbGGG3T/picture684-1.png',
+    description: 'A complex dashboard for medical professionals to analyze patient data using AI-driven insights and visualizations.',
+    links: {
+      dribbble: '#',
+    }
+  },
+  { 
+    id: 3, 
+    title: 'AI Creative Suite', 
+    category: 'Desktop App UI', 
+    imageUrl: 'https://i.postimg.cc/hvLJJ9qp/finall.png',
+    description: 'UI design for a suite of AI-powered creative tools, designed to be powerful yet accessible for artists and designers.',
+    links: {
+      dribbble: '#',
+    }
+  },
 ];
 
 const UiUxCard: React.FC<{ project: Project; isMobile: boolean }> = ({ project, isMobile }) => (
-    <div className={`group relative rounded-lg glassmorphic border border-white/10 p-4 transition-all duration-300 hover:border-purple-500/50 ${isMobile ? 'h-[500px]' : 'h-[400px]'}`}>
-        <div className="h-full w-full rounded-md overflow-hidden">
+    <div className={`group relative rounded-lg glassmorphic border border-white/10 p-4 transition-all duration-300 hover:border-purple-500/50 flex flex-col ${isMobile ? 'h-[550px]' : 'h-[400px]'}`}>
+        <div className="relative h-full w-full rounded-md overflow-hidden">
             <img 
                 src={project.imageUrl} 
                 alt={project.title} 
-                className="w-full h-full object-cover object-top transition-all duration-500 group-hover:object-bottom" 
+                loading="lazy"
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
-        <div className="absolute bottom-4 left-4 p-4">
-             <h3 className="text-lg font-bold text-white">{project.title}</h3>
-             <p className="text-purple-400">{project.category}</p>
+        <div className="absolute bottom-4 left-4 p-4 right-4 transition-all transform-gpu translate-y-10 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 duration-500">
+            <h3 className="text-lg font-bold text-white">{project.title}</h3>
+            <p className="text-purple-400 text-sm">{project.category}</p>
+            <p className="text-gray-300 text-sm mt-2">{project.description}</p>
+             {project.links.dribbble && (
+              <a href={project.links.dribbble} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-300 hover:text-white transition-colors mt-3">
+                <Dribbble size={16} /> View on Dribbble
+              </a>
+            )}
         </div>
     </div>
 );

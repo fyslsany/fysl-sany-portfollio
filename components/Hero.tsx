@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const Hero: React.FC = () => {
@@ -12,9 +13,7 @@ const Hero: React.FC = () => {
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <a
-            href="https://www.behance.net/fyslsany"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             className="px-8 py-3 rounded-md border-2 border-purple-500 text-purple-400 font-semibold glassmorphic neon-glow neon-glow-purple transition-all duration-300 hover:text-white"
           >
             Hire Me

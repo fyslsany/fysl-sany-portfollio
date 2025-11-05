@@ -7,17 +7,40 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
     setErrorMessage('');
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
+    const email = formData.get('email') as string;
+    const message = formData.get('message') as string;
+
+    // Client-side validation
+    if (!email || !message) {
+      setErrorMessage("Please fill out all fields.");
+      setStatus('error');
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage("Please enter a valid email address.");
+      setStatus('error');
+      return;
+    }
+
+    if (message.trim().length < 10) {
+      setErrorMessage("Your message should be at least 10 characters long.");
+      setStatus('error');
+      return;
+    }
+    
+    setStatus('submitting');
 
     try {
       // Use the provided Formspree URL
       const response = await fetch('https://formspree.io/f/mdkwwlnl', {
         method: 'POST',
-        body: data,
+        body: formData,
         headers: {
           'Accept': 'application/json'
         }
@@ -32,12 +55,12 @@ const Contact: React.FC = () => {
         if (Object.prototype.hasOwnProperty.call(responseData, 'errors')) {
             setErrorMessage(responseData["errors"].map((error: { message: string }) => error["message"]).join(", "));
         } else {
-            setErrorMessage("Something went wrong. Please try again later.");
+            setErrorMessage("Something went wrong on the server. Please try again later.");
         }
         setStatus('error');
       }
     } catch (error) {
-      setErrorMessage("Something went wrong. Please try again later.");
+      setErrorMessage("Something went wrong. Please check your network and try again.");
       setStatus('error');
     }
   };
@@ -64,7 +87,7 @@ const Contact: React.FC = () => {
            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full"></div>
         </div>
         <div className="max-w-2xl mx-auto">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit} noValidate>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="sr-only">Name</label>
