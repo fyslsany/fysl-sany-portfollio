@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { supabase, isBackendConfigured } from '../lib/supabaseClient';
 
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'succeeded' | 'error'>('idle');
@@ -11,11 +12,12 @@ const Contact: React.FC = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const message = formData.get('message') as string;
 
     // Client-side validation
-    if (!email || !message) {
+    if (!name || !email || !message) {
       setErrorMessage("Please fill out all fields.");
       setStatus('error');
       return;
@@ -37,29 +39,27 @@ const Contact: React.FC = () => {
     setStatus('submitting');
 
     try {
-      // Use the provided Formspree URL
-      const response = await fetch('https://formspree.io/f/mdkwwlnl', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
+      if (isBackendConfigured()) {
+        // Send to Supabase
+        const { error } = await supabase
+          .from('messages')
+          .insert([
+            { name, email, message }
+          ]);
 
-      if (response.ok) {
+        if (error) throw error;
+        
         setStatus('succeeded');
         form.reset();
       } else {
-        const responseData = await response.json();
-        // FIX: Replaced Object.hasOwn with Object.prototype.hasOwnProperty.call for better compatibility.
-        if (Object.prototype.hasOwnProperty.call(responseData, 'errors')) {
-            setErrorMessage(responseData["errors"].map((error: { message: string }) => error["message"]).join(", "));
-        } else {
-            setErrorMessage("Something went wrong on the server. Please try again later.");
-        }
+        // Fallback or Error if Supabase isn't set up yet
+        console.warn("Backend not configured. Message not sent to database.");
+        setErrorMessage("Database connection missing. Please configure Supabase keys.");
         setStatus('error');
       }
+
     } catch (error) {
+      console.error("Error submitting form:", error);
       setErrorMessage("Something went wrong. Please check your network and try again.");
       setStatus('error');
     }
@@ -69,9 +69,15 @@ const Contact: React.FC = () => {
     return (
       <section id="contact" className="py-20 sm:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center glassmorphic border border-cyan-500/50 rounded-lg p-8">
+          <div className="max-w-2xl mx-auto text-center glassmorphic border border-cyan-500/50 rounded-lg p-8 animate-fade-in">
             <h3 className="text-2xl font-bold text-white">Thank you for your message!</h3>
             <p className="text-lg text-gray-300 mt-2">I'll get back to you soon.</p>
+            <button 
+              onClick={() => setStatus('idle')}
+              className="mt-6 text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+            >
+              Send another message
+            </button>
           </div>
         </div>
       </section>
@@ -133,7 +139,9 @@ const Contact: React.FC = () => {
               </button>
             </div>
             {status === 'error' && (
-              <p className="text-center text-red-400 mt-4">{errorMessage}</p>
+              <div className="glassmorphic border border-red-500/30 p-4 rounded-lg mt-4 animate-fade-in">
+                 <p className="text-center text-red-400">{errorMessage}</p>
+              </div>
             )}
           </form>
         </div>

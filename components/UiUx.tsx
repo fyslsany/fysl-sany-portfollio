@@ -1,17 +1,17 @@
 
 import React from 'react';
 import type { Project } from '../types';
-import { Dribbble } from 'lucide-react';
+import { Dribbble, ExternalLink } from 'lucide-react';
 
 const uiProjects: Project[] = [
   { 
     id: 1, 
-    title: 'Fintech NeoBank App', 
+    title: 'Combaine Medical Centre', 
     category: 'Mobile UI/UX', 
-    imageUrl: 'https://picsum.photos/seed/fintech/800/1280',
-    description: 'A concept for a neo-banking app with a focus on clean UI, intuitive navigation, and gamified savings features.',
+    imageUrl: 'https://i.postimg.cc/Fsz699fq/Capture.jpg',
+    description: 'A responsive mobile interface for a healthcare institution, featuring streamlined doctor discovery and appointment scheduling.',
     links: {
-      dribbble: '#',
+      live: 'https://aistudio.google.com/apps/drive/1LX3v135clarxgCxe-qehOOsREHYoogWu?showPreview=true&showAssistant=true&fullscreenApplet=true',
     }
   },
   { 
@@ -36,29 +36,55 @@ const uiProjects: Project[] = [
   },
 ];
 
-const UiUxCard: React.FC<{ project: Project; isMobile: boolean }> = ({ project, isMobile }) => (
-    <div className={`group relative rounded-lg glassmorphic border border-white/10 p-4 transition-all duration-300 hover:border-purple-500/50 flex flex-col ${isMobile ? 'h-[550px]' : 'h-[400px]'}`}>
-        <div className="relative h-full w-full rounded-md overflow-hidden">
-            <img 
-                src={project.imageUrl} 
-                alt={project.title} 
-                loading="lazy"
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+const UiUxCard: React.FC<{ project: Project; isMobile: boolean }> = ({ project, isMobile }) => {
+    const primaryLink = project.links.live || project.links.dribbble;
+
+    return (
+        <div className={`group relative rounded-lg glassmorphic border border-white/10 p-4 transition-all duration-300 hover:border-purple-500/50 flex flex-col ${isMobile ? 'h-[550px]' : 'h-[400px]'}`}>
+            <div className="relative h-full w-full rounded-md overflow-hidden">
+                {primaryLink ? (
+                     <a href={primaryLink} target="_blank" rel="noopener noreferrer" className="block w-full h-full cursor-pointer">
+                        <img 
+                            src={project.imageUrl} 
+                            alt={project.title} 
+                            loading="lazy"
+                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </a>
+                ) : (
+                    <>
+                        <img 
+                            src={project.imageUrl} 
+                            alt={project.title} 
+                            loading="lazy"
+                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </>
+                )}
+            </div>
+            
+            <div className="absolute bottom-4 left-4 p-4 right-4 transition-all transform-gpu translate-y-10 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 duration-500 pointer-events-none">
+                <h3 className="text-lg font-bold text-white">{project.title}</h3>
+                <p className="text-purple-400 text-sm">{project.category}</p>
+                <p className="text-gray-300 text-sm mt-2">{project.description}</p>
+                <div className="pointer-events-auto flex gap-3 mt-3">
+                    {project.links.dribbble && (
+                    <a href={project.links.dribbble} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-300 hover:text-white transition-colors">
+                        <Dribbble size={16} /> View on Dribbble
+                    </a>
+                    )}
+                    {project.links.live && (
+                    <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-cyan-300 hover:text-white transition-colors">
+                        <ExternalLink size={16} /> Live Preview
+                    </a>
+                    )}
+                </div>
+            </div>
         </div>
-        <div className="absolute bottom-4 left-4 p-4 right-4 transition-all transform-gpu translate-y-10 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 duration-500">
-            <h3 className="text-lg font-bold text-white">{project.title}</h3>
-            <p className="text-purple-400 text-sm">{project.category}</p>
-            <p className="text-gray-300 text-sm mt-2">{project.description}</p>
-             {project.links.dribbble && (
-              <a href={project.links.dribbble} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-300 hover:text-white transition-colors mt-3">
-                <Dribbble size={16} /> View on Dribbble
-              </a>
-            )}
-        </div>
-    </div>
-);
+    );
+};
 
 
 const UiUx: React.FC = () => {

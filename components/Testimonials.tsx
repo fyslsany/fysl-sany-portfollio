@@ -1,9 +1,9 @@
-
-import React from 'react';
-import { Quote } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Quote, Plus, X, Send, Database } from 'lucide-react';
 import type { Testimonial } from '../types';
+import { supabase, isBackendConfigured } from '../lib/supabaseClient';
 
-const testimonials: Testimonial[] = [
+const INITIAL_TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     name: 'Jane Doe',
@@ -28,7 +28,7 @@ const testimonials: Testimonial[] = [
 ];
 
 const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
-  <div className="glassmorphic rounded-xl border border-white/10 p-6 flex flex-col h-full transition-all duration-300 hover:border-purple-500/50 hover:-translate-y-2">
+  <div className="glassmorphic rounded-xl border border-white/10 p-6 flex flex-col h-full transition-all duration-300 hover:border-purple-500/50 hover:-translate-y-2 animate-fade-in">
     <Quote className="text-purple-400 w-8 h-8" />
     <p className="text-gray-300 my-4 flex-grow italic">"{testimonial.quote}"</p>
     <div className="flex items-center mt-auto pt-4 border-t border-white/10 w-full">
@@ -41,21 +41,202 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
   </div>
 );
 
+const ReviewForm: React.FC<{ onClose: () => void, onSubmit: (t: Testimonial) => void, isSubmitting: boolean }> = ({ onClose, onSubmit, isSubmitting }) => {
+    const [name, setName] = useState('');
+    const [company, setCompany] = useState('');
+    const [quote, setQuote] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if(!name || !quote) return;
+        
+        const newReview: Testimonial = {
+            id: Date.now(), // Temporary ID, backend will generate real one
+            name,
+            company: company || 'Client',
+            avatarUrl: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D8ABC&color=fff`,
+            quote
+        };
+        onSubmit(newReview);
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+            <div className="relative w-full max-w-md bg-[#1a1a24] border border-white/10 rounded-2xl p-8 shadow-2xl">
+                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                    <X size={24} />
+                </button>
+                <h3 className="text-2xl font-bold text-white mb-6">Write a Review</h3>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-sm text-gray-400 mb-1">Your Name</label>
+                        <input 
+                            type="text" 
+                            required 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600"
+                            placeholder="John Doe"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm text-gray-400 mb-1">Company (Optional)</label>
+                        <input 
+                            type="text" 
+                            value={company} 
+                            onChange={(e) => setCompany(e.target.value)}
+                            className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600"
+                            placeholder="Tech Solutions Inc."
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm text-gray-400 mb-1">Your Feedback</label>
+                        <textarea 
+                            required 
+                            value={quote} 
+                            onChange={(e) => setQuote(e.target.value)}
+                            rows={4}
+                            className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white focus:border-cyan-400 focus:outline-none transition-colors placeholder-gray-600 resize-none"
+                            placeholder="Share your experience working with Faysal..."
+                        />
+                    </div>
+                    <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isSubmitting ? 'Submitting...' : <><Send size={18} /> Submit Review</>}
+                    </button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
 const Testimonials: React.FC = () => {
+  const [reviews, setReviews] = useState<Testimonial[]>(INITIAL_TESTIMONIALS);
+  const [showForm, setShowForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+        if (isBackendConfigured()) {
+            // Fetch from Supabase Backend
+            try {
+                const { data, error } = await supabase
+                    .from('testimonials')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                if (data) {
+                    // Map DB snake_case to frontend camelCase
+                    const dbReviews = data.map((item: any) => ({
+                        id: item.id,
+                        name: item.name,
+                        company: item.company || 'Client',
+                        // Fallback avatar if DB column is missing or null
+                        avatarUrl: item.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=random`,
+                        quote: item.quote
+                    }));
+                    
+                    // Appending new ones. 
+                    setReviews([...INITIAL_TESTIMONIALS, ...dbReviews]);
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        } else {
+            // Fallback to LocalStorage
+            const savedReviews = localStorage.getItem('user_reviews');
+            if (savedReviews) {
+                try {
+                    const parsed = JSON.parse(savedReviews);
+                    if (Array.isArray(parsed)) {
+                        setReviews([...INITIAL_TESTIMONIALS, ...parsed]);
+                    }
+                } catch(e) { 
+                    console.error("Failed to load reviews", e); 
+                }
+            }
+        }
+    };
+
+    fetchReviews();
+  }, []);
+
+  const handleNewReview = async (review: Testimonial) => {
+      setIsSubmitting(true);
+      
+      if (isBackendConfigured()) {
+          // Save to Supabase
+          try {
+              const { error } = await supabase
+                  .from('testimonials')
+                  .insert([
+                      { 
+                          name: review.name,
+                          company: review.company,
+                          quote: review.quote,
+                          avatar_url: review.avatarUrl
+                      },
+                  ]);
+              
+              if (error) throw error;
+
+              // If successful, update local state to show it immediately (optimistic UI)
+              setReviews(prev => [review, ...prev]); // Add new review to top
+              setShowForm(false);
+          } catch (error) {
+              console.error('Error saving review to backend:', error);
+              alert('Failed to save review to the backend. Please try again.');
+          } finally {
+              setIsSubmitting(false);
+          }
+      } else {
+          // Fallback: Save to LocalStorage
+          setTimeout(() => {
+              const savedReviews = JSON.parse(localStorage.getItem('user_reviews') || '[]');
+              const updatedSavedReviews = [review, ...savedReviews];
+              localStorage.setItem('user_reviews', JSON.stringify(updatedSavedReviews));
+              
+              setReviews([...INITIAL_TESTIMONIALS, ...updatedSavedReviews]);
+              setShowForm(false);
+              setIsSubmitting(false);
+          }, 800); // Simulate network delay
+      }
+  };
+
   return (
     <section id="testimonials" className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 relative">
           <h2 className="text-4xl md:text-5xl font-bold text-white">Words From My Clients</h2>
           <p className="text-lg text-gray-400 mt-2">Building trust through successful collaborations.</p>
            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+           
+           <button 
+             onClick={() => setShowForm(true)}
+             className="mt-8 px-6 py-2.5 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-cyan-400 hover:bg-cyan-500 hover:text-white hover:border-transparent transition-all duration-300 flex items-center gap-2 mx-auto backdrop-blur-sm"
+           >
+             <Plus size={16} /> Write a Review
+           </button>
         </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map(testimonial => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+          {reviews.map((testimonial, index) => (
+            <TestimonialCard key={`${testimonial.id}-${index}`} testimonial={testimonial} />
           ))}
         </div>
       </div>
+      
+      {showForm && (
+        <ReviewForm 
+            onClose={() => setShowForm(false)} 
+            onSubmit={handleNewReview} 
+            isSubmitting={isSubmitting}
+        />
+      )}
     </section>
   );
 };
