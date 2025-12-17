@@ -39,4 +39,5 @@ export interface Post {
     imageUrl: string;
     date: string;
     readTime: number; // in minutes
+    content?: React.ReactNode;
 }

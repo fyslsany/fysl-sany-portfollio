@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Projects from './components/Projects';
+import Projects, { projects } from './components/Projects';
 import UiUx from './components/UiUx';
 import Testimonials from './components/Testimonials';
 import About from './components/About';
@@ -17,6 +17,16 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Optimistic image preloading
+    const preloadImages = () => {
+      projects.forEach((project) => {
+        const img = new Image();
+        img.src = project.imageUrl;
+      });
+    };
+
+    preloadImages();
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000); // Simulate loading time for 3 seconds

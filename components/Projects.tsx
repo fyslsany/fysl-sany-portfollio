@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { Project } from '../types';
 import { ExternalLink } from 'lucide-react';
 
-const projects: Project[] = [
+export const projects: Project[] = [
   { 
     id: 1, 
     title: 'QuantumLeap Inc.', 
@@ -21,7 +21,7 @@ const projects: Project[] = [
     imageUrl: 'https://i.postimg.cc/HLyvfKtR/Screenshot-2025-08-31-175755.png',
     description: 'Designed a modern logo and a responsive landing page for a new fintech company, focusing on trust and user experience.',
     links: {
-      live: '#',
+      live: 'https://www.facebook.com/share/v/1RvK4u9Hvh/',
     }
   },
   { 
@@ -46,31 +46,47 @@ const projects: Project[] = [
   },
 ];
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
-  <div className="group relative overflow-hidden rounded-lg glassmorphic border border-white/10 transition-all duration-500 hover:border-cyan-400/50 hover:scale-105 flex flex-col">
-    <div className="relative h-80">
-      <img src={project.imageUrl} alt={project.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-    </div>
-    <div className="p-6 flex flex-col flex-grow">
-      <h3 className="text-xl font-bold text-white">{project.title}</h3>
-      <p className="text-cyan-400 mb-2">{project.category}</p>
-      <p className="text-gray-300 text-sm mb-4 flex-grow">{project.description}</p>
-      <div className="mt-auto flex items-center gap-4">
-        {project.links.live && (
-          <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors">
-            <ExternalLink size={16} /> Live Preview
-          </a>
+const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <div className="group relative overflow-hidden rounded-lg glassmorphic border border-white/10 transition-all duration-500 hover:border-cyan-400/50 hover:scale-105 flex flex-col">
+      <div className="relative h-80 bg-slate-900">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-800/50 animate-pulse z-10">
+             <div className="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
         )}
-        {project.links.behance && (
-          <a href={project.links.behance} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors">
-            View on Behance
-          </a>
-        )}
+        <img 
+          src={project.imageUrl} 
+          alt={project.title}
+          // @ts-ignore
+          fetchPriority="high"
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+          onLoad={() => setIsLoading(false)}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+      </div>
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold text-white">{project.title}</h3>
+        <p className="text-cyan-400 mb-2">{project.category}</p>
+        <p className="text-gray-300 text-sm mb-4 flex-grow">{project.description}</p>
+        <div className="mt-auto flex items-center gap-4">
+          {project.links.live && (
+            <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors">
+              <ExternalLink size={16} /> Live Preview
+            </a>
+          )}
+          {project.links.behance && (
+            <a href={project.links.behance} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors">
+              View on Behance
+            </a>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Projects: React.FC = () => {
   return (
