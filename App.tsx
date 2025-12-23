@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Projects, { projects } from './components/Projects';
+import Projects from './components/Projects';
 import UiUx from './components/UiUx';
 import Testimonials from './components/Testimonials';
 import About from './components/About';
@@ -17,21 +17,22 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Optimistic image preloading
-    const preloadImages = () => {
-      projects.forEach((project) => {
-        const img = new Image();
-        img.src = project.imageUrl;
-      });
+    // Check if fonts and initial DOM are ready
+    const handleLoad = () => {
+      setLoading(false);
     };
 
-    preloadImages();
-
-    const timer = setTimeout(() => {
+    if (document.readyState === 'complete') {
       setLoading(false);
-    }, 1500); // Simulate loading time for 1.5 seconds
-
-    return () => clearTimeout(timer);
+    } else {
+      window.addEventListener('load', handleLoad);
+      // Fallback timeout in case of slow resources
+      const timeout = setTimeout(() => setLoading(false), 2000);
+      return () => {
+        window.removeEventListener('load', handleLoad);
+        clearTimeout(timeout);
+      };
+    }
   }, []);
 
   if (loading) {
@@ -39,10 +40,10 @@ function App() {
   }
 
   return (
-    <div className="bg-[#0a0a14] min-h-screen overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-sky-900 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse animation-delay-4000"></div>
+    <div className="bg-[#0a0a14] min-h-screen">
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-sky-900 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-pulse animation-delay-4000"></div>
       </div>
 
       <div className="relative z-10">

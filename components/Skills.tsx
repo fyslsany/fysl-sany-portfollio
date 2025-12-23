@@ -1,15 +1,17 @@
 
 import React from 'react';
 import type { Skill } from '../types';
-import { Figma, PenTool, Code, Image, BrainCircuit, Server } from 'lucide-react';
+import { Figma, PenTool, Code, Image, BrainCircuit, Layout, Search, Zap } from 'lucide-react';
 
 const skills: Skill[] = [
   { id: 1, name: 'Adobe Illustrator', icon: <PenTool size={48} />, fact: 'The industry-standard for vector graphics and branding.', proficiency: 95 },
   { id: 2, name: 'Adobe Photoshop', icon: <Image size={48} />, fact: 'Mastery in photo manipulation, mockups, and digital art.', proficiency: 90 },
   { id: 3, name: 'Figma', icon: <Figma size={48} />, fact: 'Primary tool for collaborative UI/UX design and prototyping.', proficiency: 95 },
   { id: 4, name: 'HTML/CSS/JS', icon: <Code size={48} />, fact: 'Building responsive and interactive web interfaces.', proficiency: 85 },
-  { id: 5, name: 'Prompt Engineering', icon: <BrainCircuit size={48} />, fact: 'Crafting effective prompts for generative AI models.', proficiency: 80 },
-  { id: 6, name: 'Node.js', icon: <Server size={48} />, fact: 'Developing backend services and APIs.', proficiency: 70 },
+  { id: 5, name: 'WordPress Dev', icon: <Layout size={48} />, fact: 'Expertise in custom themes and high-performance CMS solutions.', proficiency: 92 },
+  { id: 6, name: 'SEO Expert', icon: <Search size={48} />, fact: 'Strategies for organic growth and top search rankings.', proficiency: 88 },
+  { id: 7, name: 'Prompt Engineering', icon: <BrainCircuit size={48} />, fact: 'Crafting effective prompts for generative AI models.', proficiency: 85 },
+  { id: 8, name: 'Performance Optimization', icon: <Zap size={48} />, fact: 'Ensuring ultra-fast load times and smooth user experiences.', proficiency: 90 },
 ];
 
 const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => (
@@ -25,7 +27,7 @@ const SkillCard: React.FC<{ skill: Skill }> = ({ skill }) => (
           <div className="bg-gradient-to-r from-cyan-400 to-fuchsia-400 h-1.5 rounded-full transition-all duration-500 ease-out" style={{ width: `${skill.proficiency}%` }}></div>
       </div>
     </div>
-    <div className="absolute bottom-full mb-2 w-max px-3 py-1.5 text-sm font-medium text-white bg-slate-800 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+    <div className="absolute bottom-full mb-2 w-max px-3 py-1.5 text-sm font-medium text-white bg-slate-800 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
       {skill.fact}
       <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-slate-800"></div>
     </div>
@@ -41,7 +43,7 @@ const Skills: React.FC = () => {
           <p className="text-lg text-gray-400 mt-2">The digital arsenal behind the creativity.</p>
            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {skills.map(skill => (
             <SkillCard key={skill.id} skill={skill} />
           ))}

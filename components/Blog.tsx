@@ -1,9 +1,52 @@
 
 import React, { useState } from 'react';
 import type { Post } from '../types';
-import { Calendar, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Award } from 'lucide-react';
 
 const posts: Post[] = [
+  {
+    id: 5,
+    title: 'The Aesthetics of Authority: Why Visual Design is Today’s Top Skill',
+    excerpt: 'Mastering the visual language of leadership. Learn why looking authoritative is a high-performance business strategy in a digital-first world.',
+    imageUrl: 'https://i.ibb.co/xSWk79bG/Image.png',
+    date: 'October 05, 2024',
+    readTime: 8,
+    content: (
+        <div className="space-y-6 text-gray-300 leading-relaxed">
+            <p className="text-xl text-white font-medium border-l-4 border-cyan-500 pl-4 italic">
+                "Design is the silent ambassador of your brand." — Paul Rand
+            </p>
+            <p>
+                We live in the most visually saturated era in human history. Every brand is competing for a split-second of attention. In this environment, visual design is no longer a "nice-to-have" luxury; it is the primary differentiator between a brand that scales and a brand that fails.
+            </p>
+            <h3 className="text-2xl font-bold text-white mt-8 mb-4">The 50-Millisecond Rule</h3>
+            <p>
+                Research shows that it takes a user approximately 0.05 seconds to form an opinion about your website and your brand. That opinion determines whether they stay or leave. Visual design is the silent salesperson that handles this first impression. If your design is clunky or outdated, no amount of brilliant copy will save the sale.
+            </p>
+            <h3 className="text-2xl font-bold text-white mt-8 mb-4">Design as a Trust Mechanism</h3>
+            <p>
+                Professional design signals professional service. In a world of digital scams and fly-by-night businesses, a polished visual identity is a mark of authenticity. High-demand visual designers are those who understand that colors, fonts, and layouts are tools for psychological signaling. They don't just "make things pretty"; they build trust through visual consistency.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <div className="p-5 rounded-lg glassmorphic border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)]">
+                    <h4 className="text-cyan-400 font-bold mb-2 flex items-center gap-2">
+                        <Award size={18} /> Cognitive Efficiency
+                    </h4>
+                    <p className="text-sm">Great design helps the brain process information faster, reducing friction in the user journey.</p>
+                </div>
+                <div className="p-5 rounded-lg glassmorphic border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.1)]">
+                    <h4 className="text-purple-400 font-bold mb-2 flex items-center gap-2">
+                        <Award size={18} /> Emotional Impact
+                    </h4>
+                    <p className="text-sm">Visuals trigger emotions far more effectively than text, creating lasting brand loyalty and authority.</p>
+                </div>
+            </div>
+            <p className="mt-8">
+                Mastering the visual language of leadership isn't just about art; it's about architecture. It's about building a digital structure that commands respect and ensures your voice is heard in a crowded marketplace.
+            </p>
+        </div>
+    )
+  },
   {
     id: 1,
     title: 'The Intersection of AI and Brand Identity Design',
@@ -14,72 +57,42 @@ const posts: Post[] = [
     content: (
         <div className="space-y-6 text-gray-300 leading-relaxed">
           <p>
-            Let’s be real for a moment. Every brand designer knows the feeling. The blank canvas. The client brief that’s both inspiring and terrifyingly vague. The pressure to conjure something unique, meaningful, and beautiful out of thin air. For decades, our process has been a mix of structured methodology, messy sketching, and a dash of pure magic.
+            Let’s be real for a moment. Every brand designer knows the feeling. The blank canvas. The client brief that’s both inspiring and terrifyingly vague. The pressure to conjure something unique, meaningful, and beautiful out of thin air. 
           </p>
+          <h3 className="text-2xl font-bold text-white mt-8 mb-4">The Spark: Creative Barrage</h3>
           <p>
-            But now, there’s a new player in the room. It’s not a rival, but a collaborator. It’s generative AI, and it’s not just changing our tools—it’s fundamentally rewiring the creative process itself. This isn't a story about robots taking over. It's a story about a new kind of creative partnership, one that's expanding the boundaries of what’s possible from a single logo to a global campaign.
+            The most immediate revolution is happening at the very beginning: ideation. Remember spending hours on Pinterest? Now, that spark can be a wildfire with the help of specialized LLMs and image generators.
           </p>
-        
-          <h3 className="text-2xl font-bold text-white mt-8 mb-4">The Spark: From Creative Block to Creative Barrage</h3>
-          <p>
-            The most immediate revolution is happening at the very beginning: ideation. Remember spending hours on Pinterest or Behance, searching for that perfect spark of inspiration? Now, that spark can be a wildfire.
-          </p>
-          <p>
-            Imagine you’re tasked with creating a logo for a new sustainable coffee brand. Instead of just sketching leaves and coffee beans, you can now have a conversation with a machine. You can type in prompts like:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 text-gray-400 italic bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500">
-            <li>"A minimalist logo for a coffee brand called 'Terra', combining a leaf and a coffee cup, earthy tones, geometric style."</li>
-            <li>"An abstract mark representing 'global connection' and 'organic growth', for a fair-trade coffee company, fluid lines, single-line art."</li>
-          </ul>
-          <p>
-            In seconds, you’re not looking at a blank page. You’re looking at dozens, even hundreds, of visual starting points. Most will be misses, some will be bizarre, but hidden within that output are concepts you might never have dreamed up on your own. The AI becomes a tireless, infinitely creative intern. It’s a "serendipity machine" that pushes you past your first, most obvious ideas. The designer’s role here shifts from pure creator to curator. Our value is no longer just in the drawing, but in the seeing—the trained eye that spots the kernel of genius in a sea of AI-generated noise and asks, "How can I refine this into something truly great?"
-          </p>
-        
-          <h3 className="text-2xl font-bold text-white mt-8 mb-4">Building the World: Beyond the Logo to a Cohesive System</h3>
-          <p>
-            A brand is so much more than a logo. It’s a visual language. And this is where AI’s power truly scales. Once a core concept is chosen, generative AI can help build out the entire ecosystem around it.
-          </p>
-          <p>
-            Let’s stick with our 'Terra' coffee brand. With the logo approved, a designer can now use AI to:
-          </p>
-          <ul className="space-y-3 pl-2">
-             <li className="flex gap-3"><span className="text-cyan-400 font-bold">•</span><span><strong>Generate Color Palettes:</strong> "Create five color palettes based on the logo, inspired by rich soil, morning mist, and roasted coffee beans."</span></li>
-             <li className="flex gap-3"><span className="text-cyan-400 font-bold">•</span><span><strong>Develop Patterns & Textures:</strong> "Design a subtle, repeating pattern using the geometric shapes from the 'Terra' logo, suitable for packaging or website backgrounds."</span></li>
-             <li className="flex gap-3"><span className="text-cyan-400 font-bold">•</span><span><strong>Explore Illustration Styles:</strong> "Show me examples of product illustrations in the style of Japanese woodblock prints, but with a modern, minimalist twist."</span></li>
-          </ul>
-          <p>
-            This process, which once took days of manual exploration, can now happen in a single afternoon. It allows designers to present clients with a far more fleshed-out and cohesive brand world from the very early stages. It’s about rapid visualization, testing ideas, and building a system with unprecedented speed.
-          </p>
-        
-          <h3 className="text-2xl font-bold text-white mt-8 mb-4">Scaling the Story: Campaign Visuals at the Speed of Thought</h3>
-          <p>
-            Perhaps the most profound shift is in the creation of campaign visuals. In the past, creating a suite of assets for a social media campaign, a series of banner ads, or mockups for a photoshoot was a time-intensive, often expensive process.
-          </p>
-          <p>
-            Now, a designer can act more like a creative director.
-          </p>
-          <p>
-            Need to visualize a print ad for 'Terra' coffee showing someone enjoying a cup in a sun-drenched, minimalist apartment? Instead of hiring a photographer, stylist, and models, you can generate a stunningly realistic photorealistic image to test the concept. Want to see how the new packaging looks on a shelf in a high-end grocery store? Generate it. Need ten different social media posts featuring the new brand pattern in various lifestyle contexts? Generate them.
-          </p>
-          <p>
-            This isn't about replacing final photography or illustration. It's about prototyping the vision. It allows for rapid A/B testing of creative concepts before a single dollar is spent on production. It empowers designers to think bigger and iterate faster, ensuring the final, human-crafted assets are based on a well-explored and validated creative direction.
-          </p>
-        
-          <h3 className="text-2xl font-bold text-white mt-8 mb-4">The Irreplaceable Human: Strategy, Soul, and the Final Say</h3>
-          <p>
-            With all this power, the inevitable question arises: Is the designer becoming obsolete? Absolutely not. In fact, our role is becoming more critical than ever.
-          </p>
-          <p>
-            An AI can generate a beautiful image, but it can't understand the why.
-          </p>
-          <ul className="space-y-3 pl-2">
-             <li className="flex gap-3"><span className="text-purple-400 font-bold">1.</span><span>It has no strategy. It doesn't know the client's business goals, the competitive landscape, or the deep-seated emotional needs of the target audience. That strategic foundation is the designer's domain.</span></li>
-             <li className="flex gap-3"><span className="text-purple-400 font-bold">2.</span><span>It has no soul. AI works on patterns and probabilities. It can mimic emotion, but it can't feel it. It can't infuse a design with the authentic story, the human touch, or the subtle cultural nuance that turns a brand from a product into a beloved part of someone's life.</span></li>
-             <li className="flex gap-3"><span className="text-purple-400 font-bold">3.</span><span>It has no taste. AI can produce infinite options, but it relies on the human designer to make the final, subjective call. To have the taste and experience to say, "This one. This one has the magic."</span></li>
-          </ul>
-          <p className="border-t border-white/10 pt-6 mt-8 font-semibold text-lg text-white">
-            The future of brand design isn't AI or the human designer. It's AI and the human designer. Our job is evolving. We are becoming prompt engineers, creative directors, and strategic curators. We are learning to speak a new language to harness this incredible tool, freeing us from the drudgery of execution and allowing us to focus on what we do best: think, strategize, and imbue brands with meaning.
-          </p>
+        </div>
+    )
+  },
+  {
+    id: 4,
+    title: 'The Invisible Engine: Why SEO is Vital for Your Own Business',
+    excerpt: 'Discover why mastering Search Engine Optimization is no longer optional for entrepreneurs who want to dominate their niche online.',
+    imageUrl: 'https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?q=80&w=2070&auto=format&fit=crop',
+    date: 'September 12, 2024',
+    readTime: 6,
+    content: (
+        <div className="space-y-6 text-gray-300 leading-relaxed">
+            <p>
+                In the digital age, being the "best" at what you do is only half the battle. The other half is being found. SEO transforms your technical presence into a discoverable authority.
+            </p>
+        </div>
+    )
+  },
+  {
+    id: 6,
+    title: 'Digital Proof of Life: Why Your Business Needs a Website to Survive',
+    excerpt: 'Stop relying solely on social media. Learn why an owned website is the only way to ensure business growth and true authentication.',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2070&auto=format&fit=crop',
+    date: 'October 22, 2024',
+    readTime: 5,
+    content: (
+        <div className="space-y-6 text-gray-300 leading-relaxed">
+            <p>
+                Relying on social media for your entire digital presence is like building a house on rented land. You don't own the platform, and you don't control the algorithm.
+            </p>
         </div>
     )
   },
@@ -93,54 +106,7 @@ const posts: Post[] = [
     content: (
         <div className="space-y-6 text-gray-300 leading-relaxed">
             <p>
-                In the world of digital design, trends have the lifespan of a housefly. What feels cutting-edge today—a glassmorphic button, a hyper-detailed illustration—can look dated and kitsch in a year or two. We’ve all seen it: the app that still looks like it’s stuck in 2013, with its skeuomorphic leather textures and linen backgrounds. It’s a digital relic.
-            </p>
-            <p>
-                So how do we design interfaces that not only look good today but remain intuitive, accessible, and beautiful for years to come? The secret isn’t in chasing trends, but in anchoring our work to timeless principles. It’s the difference between building a fashionable pop-up shop and constructing a timeless piece of architecture. Here are five principles to ensure your designs stand the test of time.
-            </p>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">1. Radical Clarity: Above All Else, Be Understood</h3>
-            <p>
-                Trends will always compete for the user's attention, but the core need for clarity is immutable. As technology becomes more complex and our lives more cluttered, the interfaces that endure are the ones that are ruthlessly simple. Radical clarity means stripping away every non-essential element until only what’s necessary remains. It’s about using clear language, intuitive icons, and a visual hierarchy that guides the user’s eye without them having to think.
-            </p>
-            <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
-                <strong className="text-cyan-400 block mb-1">Why it's future-proof:</strong> Human cognitive load doesn't change. While we adapt to new technologies, our brains will always appreciate simplicity. A design that is immediately understandable will never feel obsolete, no matter what device it’s viewed on.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">2. Accessibility: Designing for One, Extending to Many</h3>
-            <p>
-                For too long, accessibility was treated as a box-ticking exercise or an afterthought. The future of design has no room for this. Designing for people with disabilities—whether visual, auditory, motor, or cognitive—isn't just a moral imperative; it's the hallmark of truly great design. When you design with high contrast, clear focus states, readable fonts, and screen-reader compatibility, you’re not just helping a subset of users. You’re creating a more robust and usable experience for everyone.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
-                <strong className="text-cyan-400 block mb-1">Why it's future-proof:</strong> Inclusivity is not a trend; it's an evolution of our societal values. Legal requirements and user expectations are only moving in one direction. An accessible interface is a resilient interface, built on a foundation of empathy that will never go out of style.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">3. Respect Mental Models: Don't Reinvent the Wheel</h3>
-            <p>
-                Users come to your product with a lifetime of experience using other digital products. They have internalized patterns, or "mental models," for how things should work. The shopping cart icon belongs in the top right. The logo should probably link to the homepage. Swiping left and right navigates between images. While there’s room for innovation, ignoring these fundamental conventions for the sake of being "different" creates friction and confusion.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
-                <strong className="text-cyan-400 block mb-1">Why it's future-proof:</strong> These models are deeply ingrained in user behavior. Unless you have a truly revolutionary idea that is demonstrably better, adhering to these familiar patterns makes your interface instantly intuitive. A user shouldn't need a manual to use your app.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">4. Invisible Speed: The Feeling of Instantaneity</h3>
-            <p>
-                A beautiful interface that lags is a broken interface. Performance isn't a backend concern; it's a core part of the user experience. Future-proof design feels fast. This means optimizing images, lazy-loading content, and creating micro-interactions and animations that provide instant feedback. The goal is to make the wait times feel non-existent. The best performance is the kind the user never notices.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
-                <strong className="text-cyan-400 block mb-1">Why it's future-proof:</strong> As technology advances, user patience diminishes. We are being conditioned to expect instant results. An interface that feels snappy and responsive today will meet user expectations tomorrow, while a sluggish one will feel increasingly archaic.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">5. Content-First, Flexible Systems: The Shell, Not the Snail</h3>
-            <p>
-                Too often, we design beautiful containers and then try to cram content into them. The future-proof approach is to reverse this: design for the content first. Your interface is the shell that showcases the snail—the content is the reason the user is there. Furthermore, that shell must be flexible. We no longer design for a single screen size. We design for a vast and unpredictable ecosystem of devices, from tiny watches to massive desktops and everything in between. This means embracing fluid layouts, component-based design systems, and responsive typography.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
-                <strong className="text-cyan-400 block mb-1">Why it's future-proof:</strong> We don't know what the next big device will be. An AR headset? A smart mirror? A flexible, foldable tablet? A system built on flexible, content-first principles can adapt to any screen, any context, and any future technology without breaking.
-            </div>
-
-            <p className="border-t border-white/10 pt-6 mt-8 font-semibold text-lg text-white">
-                Ultimately, future-proofing isn't about predicting the next big thing. It's about grounding your work in the unchanging fundamentals of human psychology, accessibility, and clarity. Trends are the waves; principles are the ocean floor. Build your work on the solid ground, and it will withstand any tide.
+                In the world of digital design, trends have the lifespan of a housefly. Future-proofing your UI means anchoring it to human psychology.
             </p>
         </div>
     )
@@ -155,103 +121,84 @@ const posts: Post[] = [
     content: (
         <div className="space-y-6 text-gray-300 leading-relaxed">
             <p>
-                There’s a unique kind of frustration that every designer knows intimately. You’ve just finished a mockup. It’s perfect. The spacing is divine, the color palette is harmonious, the micro-interactions are so smooth you can almost feel them. You export the files, write a detailed brief, and hand it off to a developer. Then, the waiting game begins. You see the first build, and… it’s not quite right. The padding is off by a pixel, the animation is clunky, the magic is gone.
-            </p>
-            <p>
-                That was my life for years. I lived in the beautiful, pixel-perfect world of Figma and Sketch, and the code was a black box where my designs went to be… interpreted. I felt powerless. The thought kept nagging at me: "If only I could build this myself."
-            </p>
-            <p>
-                That thought started a journey that was one of the most challenging and rewarding things I’ve ever done. I went from being a designer who talked to developers to a designer who is also a developer. This isn't a story about becoming a senior-level engineer overnight. It's a practical guide for any designer who wants to bridge that gap, build their own creations, and gain a superpower in the process.
-            </p>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">Step 1: The Mindset Shift — From "Does it look right?" to "Does it work?"</h3>
-            <p>
-                The first hurdle isn't learning syntax; it's rewiring your brain. As a designer, your world is often subjective and visual. You make decisions based on aesthetics, feel, and brand guidelines. As a developer, your world is logical and systematic. You make decisions based on efficiency, structure, and functionality.
-            </p>
-            <p className="italic text-gray-400 border-l-2 border-purple-500 pl-4">
-                Embrace this shift. Start thinking in terms of systems, components, and logic. A button isn't just a rounded rectangle with a drop shadow; it's a component with different states (default, hover, disabled, loading) that needs to be reusable and functional. Learning to think this way is the true foundation for everything that follows.
-            </p>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">Step 2: Your New Best Friends — HTML & CSS</h3>
-            <p>
-                Forget the complex frameworks for a moment. The web is built on two languages: HTML (the skeleton) and CSS (the skin). As a visual thinker, you’ll find CSS surprisingly intuitive. It’s all about selectors, properties, and values—things you already understand from design tools.
-            </p>
-            <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-purple-500 text-sm">
-                <strong className="text-purple-400 block mb-1">My advice:</strong> Don't just read about them. Open a CodePen account and start playing. Recreate a button from a website you admire. Build a simple card layout. Translate one of your own designs into code. This hands-on practice is non-negotiable. Resources like freeCodeCamp, Wes Bos's courses, and the MDN Web Docs are your new textbooks.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">Step 3: Add a Pinch of "Magic" with JavaScript</h3>
-            <p>
-                If HTML is the skeleton and CSS is the skin, JavaScript is the nervous system. It’s what makes things do things. This can be the most intimidating part, but start small. You don't need to build a complex web app.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-purple-500 text-sm">
-                <strong className="text-purple-400 block mb-1">My advice:</strong> Focus on DOM (Document Object Model) manipulation at first. Learn how to make an element appear when you click a button, or how to change a class to trigger a CSS animation. These small wins are huge for a designer. Suddenly, you can make your interactive prototypes real. It feels like magic, and it’s incredibly motivating.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">Step 4: Choose a Framework and Commit (For a Little While)</h3>
-            <p>
-                Once you're comfortable with the basics, you'll encounter the "framework wars": React, Vue, Svelte, Angular… it’s overwhelming. Here’s my hot take: it doesn't matter that much which you pick first. The core concepts of components, state, and props are transferable.
-            </p>
-             <div className="mt-4 bg-white/5 p-4 rounded-lg border-l-4 border-purple-500 text-sm">
-                <strong className="text-purple-400 block mb-1">My advice:</strong> Pick one and stick with it. I chose React because of its massive community and job market, but Vue is often cited as more approachable for beginners. Don't get stuck in "tutorial hell." Follow a good introductory course, then immediately start a small project. Build your own portfolio site. Clone a simple app. The goal is to move from passive learning to active building.
-            </div>
-
-            <h3 className="text-2xl font-bold text-white mt-8 mb-4">The Payoff: Becoming a "Unicorn"</h3>
-            <p>
-                Learning to code won't replace your design skills; it will amplify them. Suddenly, you can have more meaningful conversations with your engineering team. You understand their constraints, you speak their language, and you earn a new level of respect. You can prototype your own ideas with fidelity, test interactions in a real browser, and even ship small projects on your own.
-            </p>
-            <p className="mt-4">
-                You become what the industry sometimes calls a "unicorn" or a "T-shaped professional"—someone with deep expertise in one area (design) and broad knowledge in another (development). This journey is a marathon, not a sprint. There will be days you stare at a screen, completely stuck, and a missing semicolon will ruin your afternoon. But then there will be the moment you write a line of code, refresh the browser, and see your own design come to life, perfectly.
+                Bridging the gap between a pixel-perfect mockup and a functional web application is the ultimate superpower for a modern creative.
             </p>
         </div>
     )
   },
 ];
 
-const PostCard: React.FC<{ post: Post; onReadMore: () => void }> = ({ post, onReadMore }) => (
-  <div className="group relative overflow-hidden rounded-lg glassmorphic border border-white/10 transition-all duration-500 hover:border-pink-500/50 hover:-translate-y-2 flex flex-col">
-    <div className="relative h-56">
-      <img src={post.imageUrl} alt={post.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-    </div>
-    <div className="p-6 flex flex-col flex-grow">
-      <div className="flex items-center gap-4 text-xs text-gray-400 mb-2">
-        <span className="flex items-center gap-1.5"><Calendar size={14} /> {post.date}</span>
-        <span className="flex items-center gap-1.5"><Clock size={14} /> {post.readTime} min read</span>
+const PostCard: React.FC<{ post: Post; onReadMore: () => void }> = ({ post, onReadMore }) => {
+  const isFeatured = post.id === 5;
+  
+  return (
+    <div className={`group relative overflow-hidden rounded-lg glassmorphic border ${isFeatured ? 'border-cyan-400/30 shadow-[0_0_30px_rgba(6,182,212,0.1)]' : 'border-white/10'} transition-all duration-500 hover:border-cyan-400/60 hover:-translate-y-2 flex flex-col h-full`}>
+      <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
+        <img 
+          src={post.imageUrl} 
+          alt={post.title} 
+          loading="lazy" 
+          decoding="async"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+        />
+        {isFeatured && (
+          <div className="absolute top-4 left-4 bg-cyan-500 text-slate-900 text-[10px] font-black px-3 py-1 rounded-full shadow-lg">
+            FEATURED ARTICLE
+          </div>
+        )}
       </div>
-      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">{post.title}</h3>
-      <p className="text-gray-300 text-sm mb-4 flex-grow">{post.excerpt}</p>
-      <button 
-        onClick={(e) => {
-            e.preventDefault();
-            onReadMore();
-        }}
-        className="mt-auto text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors text-left"
-      >
-        Read More &rarr;
-      </button>
+      <div className="p-6 flex flex-col flex-grow">
+        <div className="flex items-center gap-4 text-[10px] font-medium tracking-widest text-gray-400 mb-3 uppercase">
+          <span className="flex items-center gap-1.5"><Calendar size={12} className="text-cyan-400" /> {post.date}</span>
+          <span className="flex items-center gap-1.5"><Clock size={12} className="text-cyan-400" /> {post.readTime} MIN</span>
+        </div>
+        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors line-clamp-2 leading-tight">
+          {post.title}
+        </h3>
+        <p className="text-gray-400 text-xs mb-5 flex-grow line-clamp-3 leading-relaxed font-medium">
+          {post.excerpt}
+        </p>
+        <button 
+          onClick={(e) => {
+              e.preventDefault();
+              onReadMore();
+          }}
+          className="mt-auto text-xs font-bold text-cyan-400 hover:text-white transition-all text-left uppercase tracking-widest flex items-center gap-2 group/btn"
+        >
+          Read Perspective <span className="group-hover/btn:translate-x-1 transition-transform">&rarr;</span>
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SinglePostView: React.FC<{ post: Post; onBack: () => void }> = ({ post, onBack }) => (
-    <div className="glassmorphic rounded-xl border border-white/10 p-6 md:p-10 animate-fade-in">
-      <button onClick={onBack} className="flex items-center gap-2 text-cyan-400 mb-6 hover:text-cyan-300 transition-colors font-medium">
-          <ArrowLeft size={20} /> Back to Articles
+    <div className="glassmorphic rounded-xl border border-white/10 p-6 md:p-12 animate-fade-in max-w-4xl mx-auto shadow-2xl">
+      <button onClick={onBack} className="flex items-center gap-2 text-cyan-400 mb-8 hover:text-cyan-300 transition-colors font-bold text-xs uppercase tracking-widest">
+          <ArrowLeft size={16} /> Back to Library
       </button>
-      <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden mb-8 shadow-2xl shadow-cyan-900/20">
+      
+      <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
           <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a14] via-transparent to-transparent opacity-60"></div>
       </div>
-      <div className="flex items-center gap-6 text-sm text-gray-400 mb-6">
-          <span className="flex items-center gap-2"><Calendar size={18} /> {post.date}</span>
-          <span className="flex items-center gap-2"><Clock size={18} /> {post.readTime} min read</span>
+
+      <div className="flex items-center gap-6 text-[11px] font-bold tracking-widest text-gray-400 mb-6 uppercase">
+          <span className="flex items-center gap-2"><Calendar size={16} className="text-cyan-400" /> {post.date}</span>
+          <span className="flex items-center gap-2"><Clock size={16} className="text-cyan-400" /> {post.readTime} MIN READ</span>
       </div>
-      <h2 className="text-3xl md:text-5xl font-bold text-white mb-10 tracking-tight">{post.title}</h2>
-      <div className="max-w-4xl">
+
+      <h2 className="text-3xl md:text-5xl font-black text-white mb-10 tracking-tight leading-none text-balance">
+        {post.title}
+      </h2>
+
+      <div className="max-w-3xl prose prose-invert prose-cyan">
           {post.content || <div className="text-center py-20 text-gray-500">Full article content coming soon...</div>}
       </div>
-      <div className="mt-12 pt-8 border-t border-white/10 flex justify-center">
-        <button onClick={onBack} className="px-8 py-3 rounded-full border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-            Read Other Articles
+
+      <div className="mt-16 pt-10 border-t border-white/10 flex justify-center">
+        <button onClick={onBack} className="px-10 py-4 rounded-full bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 font-bold text-xs uppercase tracking-widest hover:bg-cyan-500 hover:text-slate-900 transition-all shadow-lg">
+            Exploration Continued
         </button>
       </div>
     </div>
@@ -260,24 +207,34 @@ const SinglePostView: React.FC<{ post: Post; onBack: () => void }> = ({ post, on
 const Blog: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
+  const handleBack = () => {
+    setSelectedPost(null);
+    setTimeout(() => {
+        document.getElementById('blog')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
-    <section id="blog" className="py-20 sm:py-28 bg-[#0f0f1a]">
+    <section id="blog" className="py-24 sm:py-32 bg-[#0a0a14]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {!selectedPost && (
-            <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">Insights & Articles</h2>
-            <p className="text-lg text-gray-400 mt-2">Sharing knowledge from the frontiers of design and tech.</p>
-            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full"></div>
+            <div className="text-center mb-20">
+              <span className="text-cyan-400 font-bold tracking-[0.4em] uppercase text-[10px] mb-2 block">Thought Leadership</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">Insights & Articles</h2>
+              <p className="text-lg text-gray-400 mt-4 max-w-2xl mx-auto leading-relaxed font-medium">Sharing knowledge from the frontiers of high-performance design.</p>
+              <div className="mt-6 w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full"></div>
             </div>
         )}
         
         {selectedPost ? (
-            <SinglePostView post={selectedPost} onBack={() => setSelectedPost(null)} />
+            <SinglePostView post={selectedPost} onBack={handleBack} />
         ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map(post => (
-                <PostCard key={post.id} post={post} onReadMore={() => setSelectedPost(post)} />
-            ))}
+              {/* Prioritize the featured post at the top/start */}
+              <PostCard post={posts[0]} onReadMore={() => setSelectedPost(posts[0])} />
+              {posts.slice(1).map(post => (
+                  <PostCard key={post.id} post={post} onReadMore={() => setSelectedPost(post)} />
+              ))}
             </div>
         )}
       </div>

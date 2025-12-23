@@ -9,14 +9,43 @@ const NavLink: React.FC<{ href: string; children: React.ReactNode; onClick: (e: 
   </a>
 );
 
-const HeaderSocialIcon: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-all duration-300 transform hover:scale-110">
-    {children}
-  </a>
+const HeaderSocialIcon: React.FC<{ href: string; children: React.ReactNode; label: string }> = ({ href, children, label }) => (
+  <div className="group relative flex flex-col items-center">
+    {/* Futuristic Tooltip */}
+    <span className="absolute -top-10 scale-0 group-hover:scale-100 transition-all duration-300 bg-cyan-500 text-slate-900 text-[10px] font-bold px-2 py-1 rounded border border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.5)] pointer-events-none uppercase tracking-tighter">
+      {label}
+    </span>
+    
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="relative flex items-center justify-center w-10 h-10 rounded-full border border-white/10 glassmorphic text-gray-400 transition-all duration-500 group-hover:text-cyan-400 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] group-hover:-translate-y-1 overflow-hidden"
+    >
+      {/* Background Glow Effect */}
+      <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400/5 transition-colors duration-500"></div>
+      
+      {/* Icon Content */}
+      <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
+        {children}
+      </div>
+
+      {/* Scanning Line Animation on Hover */}
+      <div className="absolute top-0 left-[-100%] w-full h-[1px] bg-cyan-400/30 group-hover:animate-[scan_1.5s_infinite] pointer-events-none"></div>
+    </a>
+
+    <style>{`
+      @keyframes scan {
+        0% { top: 0; opacity: 0; left: 0; }
+        50% { opacity: 1; }
+        100% { top: 100%; opacity: 0; left: 0; }
+      }
+    `}</style>
+  </div>
 );
 
 // Custom X (formerly Twitter) Icon
-const XIcon = ({ size = 20 }: { size?: number }) => (
+const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
   </svg>
@@ -34,10 +63,10 @@ const Header: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: <Facebook size={20} />, href: 'https://www.facebook.com/profile.php?id=61583844835869' },
-    { icon: <Instagram size={20} />, href: 'https://www.instagram.com/mdfy.slsany/' },
-    { icon: <Youtube size={20} />, href: 'https://www.youtube.com/@MdFaysalAhamed-e5l6l' },
-    { icon: <XIcon size={18} />, href: 'https://x.com/fyslsany' },
+    { icon: <Facebook size={18} />, href: 'https://www.facebook.com/profile.php?id=61583844835869', label: 'Facebook' },
+    { icon: <Instagram size={18} />, href: 'https://www.instagram.com/mdfy.slsany/', label: 'Instagram' },
+    { icon: <Youtube size={18} />, href: 'https://www.youtube.com/@MdFaysalAhamed-e5l6l', label: 'YouTube' },
+    { icon: <XIcon size={16} />, href: 'https://x.com/fyslsany', label: 'X.com' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -65,14 +94,14 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" onClick={handleNavClick} className="text-3xl font-bold text-white tracking-tighter shrink-0">
-            F<span className="text-cyan-400">A</span>.
+          <a href="#" onClick={handleNavClick} className="text-3xl font-bold text-white tracking-tighter shrink-0 group">
+            F<span className="text-cyan-400 group-hover:text-purple-400 transition-colors duration-500">A</span>.
           </a>
 
           {/* Social Icons - Middle Section (Desktop) */}
-          <div className="hidden lg:flex items-center gap-6 px-8 border-x border-white/5 mx-4">
+          <div className="hidden lg:flex items-center gap-4 px-10 border-x border-white/5 mx-4 h-12">
             {socialLinks.map((social, idx) => (
-              <HeaderSocialIcon key={idx} href={social.href}>
+              <HeaderSocialIcon key={idx} href={social.href} label={social.label}>
                 {social.icon}
               </HeaderSocialIcon>
             ))}
@@ -99,7 +128,7 @@ const Header: React.FC = () => {
             >
               BN
             </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none p-1">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none p-1 transition-transform active:scale-90">
               {isOpen ? <CloseMenu size={28} /> : <Menu size={28} />}
             </button>
           </div>
@@ -108,18 +137,24 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden glassmorphic border-t border-white/10 animate-fade-in">
-          <nav className="flex flex-col items-center py-8 gap-4">
+        <div className="md:hidden glassmorphic border-t border-white/10 animate-fade-in shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+          <nav className="flex flex-col items-center py-10 gap-6">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-xl text-gray-300 hover:text-cyan-400 font-medium" onClick={handleNavClick}>
+              <a key={link.href} href={link.href} className="text-2xl text-gray-300 hover:text-cyan-400 font-bold tracking-tight" onClick={handleNavClick}>
                 {link.label}
               </a>
             ))}
             
             {/* Mobile Socials */}
-            <div className="flex items-center gap-8 mt-6 pt-6 border-t border-white/10 w-full justify-center">
+            <div className="flex items-center gap-6 mt-8 pt-8 border-t border-white/10 w-full justify-center">
                {socialLinks.map((social, idx) => (
-                <a key={idx} href={social.href} target="_blank" rel="noopener noreferrer" className="text-cyan-400">
+                <a 
+                  key={idx} 
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-12 h-12 rounded-full border border-white/10 glassmorphic flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/10"
+                >
                   {social.icon}
                 </a>
               ))}
