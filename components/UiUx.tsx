@@ -31,7 +31,7 @@ const uiProjects: Project[] = [
     imageUrl: 'https://i.postimg.cc/HLyvfKtR/Screenshot-2025-08-31-175755.png',
     description: 'A high-converting professional portfolio for a medical specialist, featuring case studies, patient testimonials, and a direct booking system.',
     links: {
-      live: 'https://drtriptishghose.liveblog365.com/?i=1',
+      live: 'https://drtriptishchandraghose.com/?i=1',
     }
   },
   { 
