@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { supabase, isBackendConfigured } from '../lib/supabaseClient';
 
@@ -40,7 +39,6 @@ const Contact: React.FC = () => {
 
     try {
       if (isBackendConfigured()) {
-        // Send to Supabase
         const { error } = await supabase
           .from('messages')
           .insert([
@@ -52,15 +50,13 @@ const Contact: React.FC = () => {
         setStatus('succeeded');
         form.reset();
       } else {
-        // Fallback or Error if Supabase isn't set up yet
-        console.warn("Backend not configured. Message not sent to database.");
         setErrorMessage("Database connection missing. Please configure Supabase keys.");
         setStatus('error');
       }
 
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setErrorMessage("Something went wrong. Please check your network and try again.");
+    } catch (error: any) {
+      const isNetworkError = error.message?.includes('fetch') || error.name === 'TypeError';
+      setErrorMessage(isNetworkError ? "Database currently offline. Please try again later or reach out via WhatsApp." : (error.message || "Submission failed."));
       setStatus('error');
     }
   };
@@ -140,7 +136,7 @@ const Contact: React.FC = () => {
             </div>
             {status === 'error' && (
               <div className="glassmorphic border border-red-500/30 p-4 rounded-lg mt-4 animate-fade-in">
-                 <p className="text-center text-red-400">{errorMessage}</p>
+                 <p className="text-center text-red-400 font-medium">{errorMessage}</p>
               </div>
             )}
           </form>

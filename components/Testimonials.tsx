@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Quote, Plus, X, Send, Database } from 'lucide-react';
+import { Quote, Plus, X, Send } from 'lucide-react';
 import type { Testimonial } from '../types';
 import { supabase, isBackendConfigured } from '../lib/supabaseClient';
 
@@ -51,7 +51,7 @@ const ReviewForm: React.FC<{ onClose: () => void, onSubmit: (t: Testimonial) => 
         if(!name || !quote) return;
         
         const newReview: Testimonial = {
-            id: Date.now(), // Temporary ID, backend will generate real one
+            id: Date.now(), 
             name,
             company: company || 'Client',
             avatarUrl: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D8ABC&color=fff`,
@@ -121,33 +121,31 @@ const Testimonials: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
         if (isBackendConfigured()) {
-            // Fetch from Supabase Backend
             try {
                 const { data, error } = await supabase
                     .from('testimonials')
                     .select('*')
                     .order('created_at', { ascending: false });
 
-                if (error) throw error;
-                if (data) {
-                    // Map DB snake_case to frontend camelCase
+                if (error) {
+                    // Quietly ignore if DB is paused
+                    return;
+                }
+                
+                if (data && data.length > 0) {
                     const dbReviews = data.map((item: any) => ({
                         id: item.id,
                         name: item.name,
                         company: item.company || 'Client',
-                        // Fallback avatar if DB column is missing or null
                         avatarUrl: item.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=random`,
                         quote: item.quote
                     }));
-                    
-                    // Appending new ones. 
                     setReviews([...INITIAL_TESTIMONIALS, ...dbReviews]);
                 }
-            } catch (error) {
-                console.error('Error fetching reviews:', error);
+            } catch (error: any) {
+                // Completely silent fallback for 'Failed to fetch' errors
             }
         } else {
-            // Fallback to LocalStorage
             const savedReviews = localStorage.getItem('user_reviews');
             if (savedReviews) {
                 try {
@@ -155,9 +153,7 @@ const Testimonials: React.FC = () => {
                     if (Array.isArray(parsed)) {
                         setReviews([...INITIAL_TESTIMONIALS, ...parsed]);
                     }
-                } catch(e) { 
-                    console.error("Failed to load reviews", e); 
-                }
+                } catch(e) { }
             }
         }
     };
@@ -169,7 +165,6 @@ const Testimonials: React.FC = () => {
       setIsSubmitting(true);
       
       if (isBackendConfigured()) {
-          // Save to Supabase
           try {
               const { error } = await supabase
                   .from('testimonials')
@@ -184,17 +179,17 @@ const Testimonials: React.FC = () => {
               
               if (error) throw error;
 
-              // If successful, update local state to show it immediately (optimistic UI)
-              setReviews(prev => [review, ...prev]); // Add new review to top
+              setReviews(prev => [review, ...prev]);
               setShowForm(false);
-          } catch (error) {
-              console.error('Error saving review to backend:', error);
-              alert('Failed to save review to the backend. Please try again.');
+          } catch (error: any) {
+              const msg = error.message?.includes('fetch') 
+                ? 'Database is currently offline. Please try again later.' 
+                : (error.message || 'Submission failed');
+              alert(msg);
           } finally {
               setIsSubmitting(false);
           }
       } else {
-          // Fallback: Save to LocalStorage
           setTimeout(() => {
               const savedReviews = JSON.parse(localStorage.getItem('user_reviews') || '[]');
               const updatedSavedReviews = [review, ...savedReviews];
@@ -203,7 +198,7 @@ const Testimonials: React.FC = () => {
               setReviews([...INITIAL_TESTIMONIALS, ...updatedSavedReviews]);
               setShowForm(false);
               setIsSubmitting(false);
-          }, 800); // Simulate network delay
+          }, 800);
       }
   };
 

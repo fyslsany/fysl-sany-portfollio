@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const Hero: React.FC = () => {
@@ -16,8 +15,7 @@ const Hero: React.FC = () => {
                 alt="Faysal Ahamed" 
                 width="160"
                 height="160"
-                // @ts-ignore
-                fetchpriority="high"
+                fetchPriority="high"
                 loading="eager"
                 className="w-full h-full object-cover rounded-full"
               />

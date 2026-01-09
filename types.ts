@@ -1,5 +1,4 @@
 
-// FIX: Import React to use React.ReactNode type.
 import React from 'react';
 
 export interface Project {

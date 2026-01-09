@@ -1,76 +1,77 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Preconnect to image CDNs for faster DNS resolution -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a14" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Faysal Ahamed | Visual Designer | UI/UX | Frontend Developer</title>
+    <meta name="description" content="Portfolio of Faysal Ahamed, a senior Visual Designer & Frontend Developer specializing in brand identity, UI/UX design, and future-proof digital experiences." />
+    <meta name="keywords" content="Faysal Ahamed, Visual Designer, UI/UX Designer, Brand Identity, Frontend Developer, React Developer, Graphic Design Portfolio, Futuristic Web Design" />
+    <meta name="author" content="Faysal Ahamed" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fyslsany.github.io/fysl-sany-portfolio/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://fyslsany.github.io/fysl-sany-portfolio/" />
+    <meta property="og:title" content="Faysal Ahamed | Visual Designer & UI/UX Specialist" />
+    <meta property="og:description" content="A futuristic, cyberpunk-themed portfolio showcasing immersive brand identities and high-performance digital interfaces." />
+    <meta property="og:image" content="https://i.postimg.cc/y8QTYzjW/Layer-6.png" />
+
     <link rel="preconnect" href="https://i.postimg.cc">
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TLCN9PV7');</script>
-    <!-- End Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TLCN9PV7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GTM-TLCN9PV7');
+    </script>
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a14" />
     <meta name="google-site-verification" content="gnD66VncaByI4OEUEAJ198UKWaGEx-Guh5d-MOexeao" />
-    <title>Faysal Ahamed | Visual Designer | Frontend Developer | AI Enthusiast</title>
     
-    <!-- Use media print trick for non-blocking font load -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #0a0a14;
-        color: #e0e0e0;
-        margin: 0;
-      }
-      /* Critical CSS for layout stability */
-      .glassmorphic {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-        opacity: 0;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      /* CLS Prevention: Reserve space for common image ratios */
-      .aspect-project { aspect-ratio: 16 / 10; }
-      .aspect-ui { aspect-ratio: 4 / 3; }
+      :root { --bg-dark: #0a0a14; --cyan-primary: #22d3ee; }
+      body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: #e0e0e0; margin: 0; overflow-x: hidden; }
+      .glassmorphic { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes spin3d { from { transform: rotateX(0deg) rotateY(0deg); } to { transform: rotateX(360deg) rotateY(360deg); } }
+      .loader-cube { transform-style: preserve-3d; animation: spin3d 12s infinite linear; }
+      .aspect-project { aspect-ratio: 16/10; }
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "react": "https://esm.sh/react@^19.1.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.525.0",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.7"
+    "react": "https://esm.sh/react@19.1.0",
+    "react-dom": "https://esm.sh/react-dom@19.1.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.1.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.473.0?external=react",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.7",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
+  <link rel="stylesheet" href="/index.css">
 </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLCN9PV7"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLCN9PV7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
