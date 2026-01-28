@@ -8,7 +8,7 @@ const posts: Post[] = [
     id: 5,
     title: 'The Aesthetics of Authority: Why Visual Design is Today’s Top Skill',
     excerpt: 'Mastering the visual language of leadership. Learn why looking authoritative is a high-performance business strategy in a digital-first world.',
-    imageUrl: 'https://i.ibb.co/xSWk79bG/Image.png',
+    imageUrl: 'https://i.postimg.cc/9fcV7N8n/Image-(1).webp',
     date: 'October 05, 2024',
     readTime: 8,
     content: (
