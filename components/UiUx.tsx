@@ -5,7 +5,7 @@ import { Dribbble, ExternalLink, Globe, Smartphone, Layout, MousePointer2, Layer
 
 const uiProjects: Project[] = [
   { 
-    id: 8, 
+    id: 1, 
     title: 'Heart Care Foundation', 
     category: 'NGO WordPress Development', 
     imageUrl: 'https://heartcarefoundationcb.org/wp-content/uploads/2024/01/Heart-Care-Foundation-Comilla-Bangladesh.png',
@@ -15,7 +15,7 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 1, 
+    id: 2, 
     title: 'Combaine Medical Centre', 
     category: 'Health Org WordPress', 
     imageUrl: 'https://i.postimg.cc/Fsz699fq/Capture.jpg',
@@ -25,7 +25,7 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 4, 
+    id: 3, 
     title: "Doctor's Portfolio Website", 
     category: 'Personal Brand Website', 
     imageUrl: 'https://i.postimg.cc/HLyvfKtR/Screenshot-2025-08-31-175755.png',
@@ -35,7 +35,7 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 5, 
+    id: 4, 
     title: '7+ Premium Header Styles', 
     category: 'Navigation Architecture', 
     imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop&q=75',
@@ -45,7 +45,7 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 6, 
+    id: 5, 
     title: '7+ Modern Footer Styles', 
     category: 'Conversion Systems', 
     imageUrl: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=800&auto=format&fit=crop&q=75',
@@ -55,7 +55,7 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 7, 
+    id: 6, 
     title: 'Mobile-First Master Template', 
     category: 'Responsive Framework', 
     imageUrl: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=800&auto=format&fit=crop&q=75',
@@ -65,13 +65,23 @@ const uiProjects: Project[] = [
     }
   },
   { 
-    id: 2, 
+    id: 7, 
     title: 'HealthTech AI Diagnostics', 
     category: 'Web Dashboard', 
     imageUrl: 'https://i.postimg.cc/rmbGGG3T/picture684-1.png',
     description: 'A complex dashboard for medical professionals using AI-driven insights and visualizations.',
     links: {
       dribbble: '#',
+    }
+  },
+   { 
+    id: 8, 
+    title: 'Care Medical Centre', 
+    category: 'Web Dashboard', 
+    imageUrl: 'https://i.postimg.cc/MpKdf70p/Screenshot-2026-01-28-233541.png',
+    description: 'Care Medical portal built for easy patient access, clear service listings, and transparent organizational communication.',
+    links: {
+       live: 'https://semantic-purple-l3s1wilutx.edgeone.app/screencapture-127-0-0-1-5500-index-html-2026-01-28-23_31_15.pdf/?i=1',
     }
   },
 ];
